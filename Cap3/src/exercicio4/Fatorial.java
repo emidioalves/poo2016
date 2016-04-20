@@ -2,7 +2,7 @@ package exercicio4;
 
 public class Fatorial {
 	
-	public static double fatorial ( int n ){
+	public static int fatorial ( int n ){
 		
 		if (n <= 1){
 			
