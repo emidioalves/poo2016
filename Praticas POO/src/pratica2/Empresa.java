@@ -23,6 +23,13 @@ public class Empresa {
 		}
 		return null;
 	}
+	
+	//função para imprimir funcionarios
+	public void imprimeFuncionarios (){
+		for (int i = 0; i <quantidade; i++){
+			System.out.println(funcionarios[i].getNome());
+		}
+	}
 	//função para retirar funcionario do array
 	public void removerFuncionario(){
 		//testar
