@@ -6,10 +6,12 @@ public class EmpresaTeste {
 		
 		Empresa empresa = new Empresa();
 		
-		Funcionario empregado = new Funcionario ("Joao", 1000);
+		Funcionario empregado = new Funcionario ();
+		empregado.setNome("Joao");
+		empregado.setSalario(1000);
+		empregado.setRg("12345");
 		empresa.adicionarFuncionario(empregado);
-		Funcionario empregado2 = new Funcionario ("Carlos", 1500);
-		empresa.adicionarFuncionario(empregado2);
+		
 		
 		empresa.imprimeFuncionarios();
 		System.out.println("Numero de funcionarios da empresa: " + empresa.numFuncionario());

@@ -1,19 +1,19 @@
-package pratica2;
+package pratica3;
 
 public class Funcionario {
-	
 	private String nome;
 	private double salario;
-	private String dataEntrada;
+	//private String dataEntrada;
 	//private String departamento;
-	private String rg; 
+	//private String rg; 
 	
+	//metodo construtor para o funcionario
 	/*public Funcionario( String nome, double salario){
 		this.nome = nome;
 		this.salario = salario;
 	}*/	
 	
-	
+	//criacão de setters e getters para os parametros da classe
 	public String getNome() {
 		return nome;
 	}
@@ -30,7 +30,7 @@ public class Funcionario {
 		this.salario = salario;
 	}
 
-	public String getRg() {
+	/*public String getRg() {
 		return rg;
 	}
 
@@ -44,8 +44,7 @@ public class Funcionario {
 
 	public void setDataEntrada(String dataEntrada) {
 		this.dataEntrada = dataEntrada;
-	}
+	}*/
 	
-	
-	
+
 }
