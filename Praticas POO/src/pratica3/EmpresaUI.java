@@ -35,6 +35,8 @@ import java.util.Scanner;
 						buscar(); break;
 					case 3:
 						remover(); break;
+					case 4:
+						imprime(); break;
 				}
 			}while (option !=0);
 			}
@@ -57,18 +59,31 @@ import java.util.Scanner;
 			String nome  = input.nextLine();
 			Funcionario empregado = empresa.buscarFuncionario(nome);
 			if (empregado!= null){
-				System.out.println("Funcionario encontrado. Nome:  " + empregado.getNome() + "\nsalario: " + empregado.getSalario());
+				System.out.println("Funcionario encontrado. Nome:  " + empregado.getNome() + "\n\tsalario: " + empregado.getSalario());
 			}
 			else
 				System.out.print("Contato não encontrado");
 		}
 		
-		//metodo para remover funcionario
-		/*
-		 * A ser implementado
-		 */
+		//metodo para remover funcionario da lista
 		 private void remover(){
-			 System.out.print("A ser implementado!!!!"); 
+			System.out.print("Removendo funcionario... ");
+			System.out.print("Digite o nome:  ");
+			String nome  = input.nextLine();
+			Funcionario empregado = empresa.buscarFuncionario(nome);
+			if (empregado != null){
+				empresa.removerFuncionario(empregado);
+				System.out.print("Funcionario removido com sucesso!!!"); 
+			}
+			else{
+				System.out.println("Funcionario nao encontrado!");
+			}
+		 }
+		 
+		 //metodo para imprimir os funcionarios da lista
+		 private void imprime(){
+			 
+			 empresa.imprimeFuncionarios(); 
 		 }
 		 
 		 private void printMenu(){
@@ -78,6 +93,7 @@ import java.util.Scanner;
 			 System.out.println("\t 1 - Adicionar Funcionario  ");
 			 System.out.println("\t 2 - Buscar Funcionario  ");
 			 System.out.println("\t 3 - Remover Funcionario  ");
+			 System.out.println("\t 4 - Imprimir Funcionarios  ");
 			 System.out.println("Digite uma opção:  ");
 
 				

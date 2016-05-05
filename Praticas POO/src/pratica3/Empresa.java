@@ -28,12 +28,19 @@ public class Empresa {
 	//função para imprimir todos os funcionarios da lista
 	public void imprimeFuncionarios (){
 		for (int i = 0; i <funcionarios.size(); i++){
-			System.out.println( funcionarios.get(i));
+			Funcionario func = funcionarios.get(i);
+			System.out.println("Funcionarios na lista: \nNome: " + func.getNome() + "\n\tsalario: " + func.getSalario());
 		}
 	}
+	/*public void imprimeFuncionarios (){
+		for (Funcionario func : funcionarios){
+			System.out.println("Funcionarios na lista: \nNome: " + func.getNome() + "\n\tsalario: " + func.getSalario());
+		}
+	}*/
+	
 	//função para retirar funcionario do array a partir do nome
-	public void removerFuncionario(String nome){
-		funcionarios.remove(nome);
+	public void removerFuncionario(Funcionario func){
+		funcionarios.remove(func);
 		
 	}
 	
