@@ -9,10 +9,16 @@ public class Empresa {
 	public Empresa(String nomeEmpresa) {
 		this.nomeEmpresa = nomeEmpresa;
 		empregados = new ArrayList <Empregado>();
+		
 	}
 	
 	public void addGerente(String nome, double salario){
 		empregados.add(new Gerente(nome, salario));
 	}
 
+	public void addTecnico(String nome, double salario){
+		empregados.add(new Tecnico(nome,salario));
+	}
+	
+	
 }
