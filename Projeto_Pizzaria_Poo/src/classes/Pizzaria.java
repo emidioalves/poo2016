@@ -15,12 +15,12 @@ public class Pizzaria {
 	}
 	
 	//metodo de cadastro de produtos na pizzaria - as intancias do produto devem estar previamente setadas
-	public void cadastrarPizzaDoce(String nome, double preco, String sabor, String tamanho){
+	public void cadastrarPizzaDoce(String nome, double preco, String tamanho){
 		produtos.add(new PizzaDoce(nome, preco, tamanho));
 	}
 	
 	//metodo de cadastro de pizza salgada - as intancias do produto devem estar previamente setadas
-	public void cadastrarPizzaSalgada(String nome, double preco, String sabor, String tamanho){
+	public void cadastrarPizzaSalgada(String nome, double preco, String tamanho){
 		produtos.add(new PizzaSalgada(nome, preco, tamanho));
 	}
 	
@@ -29,8 +29,22 @@ public class Pizzaria {
 		produtos.add(new Bebida(nome, preco, tamanho));
 	}
 	
+	//metodo para listar todos os produtos
+	public void listarProdutos(){
+		boolean state1 = false;
+		for(int i=0;i<produtos.size();i++){
+		
+	    	System.out.println("Nome: "+produtos.get(i).getNome()+" / Tamanho: "+produtos.get(i).getTamanho() 
+	    		+"/ Preço: "+ produtos.get(i).getPreco());
+	    	state1 = true;
+	    	
+			if(!state1){
+				System.out.println("A pizzaria ainda não cadastrou pizzas doces");
+			}
+		}
+	}
 	
-	//metodo que lista todos as pizzas doces
+	//metodo para listar todas as pizzas doces
 	public void listarPizzasDoces(){
 		boolean state1 = false;
 		for(int i=0;i<produtos.size();i++){
@@ -40,13 +54,13 @@ public class Pizzaria {
 	    		+"/ Preço: "+ produtos.get(i).getPreco());
 	    	state1 = true;
 	    	}
-			if(!state1){
-				System.out.println("A pizzaria ainda não cadastrou pizzas doces");
-			}
+		}
+		if(!state1){
+			System.out.println("A pizzaria ainda não cadastrou pizzas doces");
 		}
 	}
 	
-	//funcao para adicionar pizzas salgadas
+	//metodo para adicionar pizzas salgadas
 	public void listarPizzasSalgadas(){
 		boolean state1 = false;
 		for(int i=0;i<produtos.size();i++){
@@ -56,13 +70,13 @@ public class Pizzaria {
 	    		+"/ Preço: "+ produtos.get(i).getPreco());
 	    	state1 = true;
 	    	}
-			if(!state1){
-				System.out.println("A pizzaria ainda não cadastrou pizzas salgadas");
-			}
+		}
+		if(!state1){
+			System.out.println("A pizzaria ainda não cadastrou pizzas salgadas");
 		}
 	}
 	
-	//funcao para adicionar bebidas
+	//metodo para adicionar bebidas
 	public void listarBebidas(){
 		boolean state1 = false;
 		for(int i=0;i<produtos.size();i++){
@@ -72,38 +86,54 @@ public class Pizzaria {
 	    		+"/ Preço: "+ produtos.get(i).getPreco());
 	    	state1 = true;
 	    	}
-			if(!state1){
-				System.out.println("A pizzaria ainda não cadastrou bebidas");
-			}
 		}
+		if(!state1){
+			System.out.println("A pizzaria ainda não cadastrou bebidas");
+		}
+		
 	}
 	
-	//função para remover produto da lista de produtos
+	//metodo para remover produto da lista de produtos
 	public void removerProduto(Produto prod){
 		produtos.remove(prod);
 	}
 	
 	/*
 	 * 
-	 * Funções para realizar o atendimento das mesas
+	 * Metodo para realizar o atendimento das mesas
 	 * 
 	 */
 	
-	//fucao para adicionar mesa na lista de mesas
+	//metodo para listar as mesas
+	public void listarMesas(){
+		boolean state1 = false;
+		System.out.println(" Mesa(s) ocupada(s): ");
+
+		for(int i=0;i<mesas.size();i++){
+	    	System.out.println(mesas.get(i).getNumMesa());
+	    	state1 = true;
+		}	
+		if(!state1){
+			System.out.println("A pizzaria ainda não tem nenhuma mesa ocupada");
+		}
+	}
+	//metodo para adicionar mesa na lista de mesas
 	public void adicionarMesa(Mesa mesa){
 		mesas.add(mesa);
 	}
 	
-	//funcao para buscar uma mesa na lista - utilizando o numero da mesa
-	public Mesa buscarMesa(int numMesa){
+	//metodo para buscar uma mesa na lista - utilizando o numero da mesa
+	public Mesa buscarMesa(String numMesa){
 		for(Mesa mesa : mesas ){
-			if(mesa.getNumMesa() ==numMesa)
-				return(mesa);
+			if(mesa.getNumMesa().equals(numMesa)){
+				System.out.println("Mesa" + numMesa + " encontrada");
+			}
+			return mesa;
 		}
 		return null;
 	}
 	
-	//funcao para receber procurar um produto na lista de produtos
+	//metodo para procurar um produto na lista de produtos
 	public Produto buscarProduto(String nome){
 		for (Produto prod: produtos){
 			if (prod.getNome().equals(nome))
@@ -112,8 +142,32 @@ public class Pizzaria {
 		return null;
 	}
 	
-	//função para adicionar um produto encontrado pelo nome na lista de pedidos da mesa
-	public void realizarPedido(String nome, int numMesa){
+	//metodo para adicionar um produto encontrado pelo nome na lista de pedidos da mesa
+	public void realizarPedido(String nome, String numMesa){
+		Produto prod = buscarProduto(nome);
+		Mesa mesaPedido = buscarMesa(numMesa);
+		mesaPedido.adicionarProdutoPedido(prod);
+	}
+	
+	//metodo para remover um produto adicionado em um pedido de mesa
+	public void removerProdutoPedido(String nome, String numMesa){
+		Produto prod = buscarProduto(nome);
+		Mesa mesaPedido = buscarMesa (numMesa);
+		mesaPedido.removerProdutoPedido(prod);
+	}
+	
+	//metodo para listar os produtos
+	public void listarPedido(String numMesa){
+		Mesa mesaPedido = buscarMesa(numMesa);
+		mesaPedido.listarProdutosPedido();
+	}
+	
+	//metodo que mostra os pedidos da mesa
+	public void pedidosMesa(String numMesa){
 		
 	}
+	
+	
+	
+	
 }

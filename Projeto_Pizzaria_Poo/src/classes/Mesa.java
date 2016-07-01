@@ -3,24 +3,46 @@ package classes;
 import java.util.*;
 public class Mesa {
 	
-	private int numMesa;
+	private String numMesa;
 	private ArrayList<Produto> pedido;
 
-	public Mesa(int numMesa){
+	public Mesa(String numMesa){
 		pedido = new ArrayList<Produto>();
 		this.numMesa = numMesa;
 	}
 	
-	public int getNumMesa() {
+	public String getNumMesa() {
 		return numMesa;
 	}
 
-	public void setNumMesa(int numMesa) {
+	public void setNumMesa(String numMesa) {
 		this.numMesa = numMesa;
 	}
 	
-	//metodo para adicionar produto na lista da mesa
-	public void addProdutoPedido(String nome, double preco, String tamanho){
-		pedido.add(new Produto(nome, preco, tamanho));
+	//metodo que adiciona produtos ao pedido
+	public void adicionarProdutoPedido(Produto prod){
+		pedido.add(prod);
 	}
+	
+	public void removerProdutoPedido(Produto prod){
+		pedido.remove(prod);
+	}
+	
+	//metodo que lista os produtos na lista da mesa
+	public void listarProdutosPedido(){
+		boolean state1 = false;
+		double total = 0;
+		for(int i=0;i<pedido.size();i++){
+			
+		    System.out.println("Nome: "+pedido.get(i).getNome()+" / Tamanho: "+pedido.get(i).getTamanho() 
+		    	+"/ Preço: "+ pedido.get(i).getPreco());
+		    total += pedido.get(i).getPreco();
+		    state1 = true;
+		}
+		System.out.println("TOTAL:" + total + "reais");
+
+		if(!state1){
+			System.out.println("A mesa ainda não realizou um pedido");
+			}
+		}	
 }
