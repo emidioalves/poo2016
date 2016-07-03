@@ -34,7 +34,7 @@ public class Mesa {
 		double total = 0;
 		for(int i=0;i<pedido.size();i++){
 			
-		    System.out.println("Nome: "+pedido.get(i).getNome()+" / Tamanho: "+pedido.get(i).getTamanho() 
+		    System.out.println("Item: "+ (i+1) + " " + pedido.get(i).getNome()+" / Tamanho: "+pedido.get(i).getTamanho() 
 		    	+"/ Preço: "+ pedido.get(i).getPreco());
 		    total += pedido.get(i).getPreco();
 		    state1 = true;

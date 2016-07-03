@@ -1,5 +1,10 @@
 package classes;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class Pizzaria {
@@ -14,17 +19,17 @@ public class Pizzaria {
 		this.nomePizzaria = nomePizzaria;
 	}
 	
-	//metodo de cadastro de produtos na pizzaria - as intancias do produto devem estar previamente setadas
+	//metodo de adicionar produtos na pizzaria - as intancias do produto devem estar previamente setadas
 	public void cadastrarPizzaDoce(String nome, double preco, String tamanho){
 		produtos.add(new PizzaDoce(nome, preco, tamanho));
 	}
 	
-	//metodo de cadastro de pizza salgada - as intancias do produto devem estar previamente setadas
+	//metodo de adicionar pizza salgada - as intancias do produto devem estar previamente setadas
 	public void cadastrarPizzaSalgada(String nome, double preco, String tamanho){
 		produtos.add(new PizzaSalgada(nome, preco, tamanho));
 	}
 	
-	//metodo de cadastro de bebida - as intancias do produto devem estar previamente setadas
+	//metodo para adicionar bebida - as intancias do produto devem estar previamente setadas
 	public void cadastrarBebida(String nome, double preco, String tamanho){
 		produtos.add(new Bebida(nome, preco, tamanho));
 	}
@@ -60,7 +65,7 @@ public class Pizzaria {
 		}
 	}
 	
-	//metodo para adicionar pizzas salgadas
+	//metodo para lsitar pizzas salgadas
 	public void listarPizzasSalgadas(){
 		boolean state1 = false;
 		for(int i=0;i<produtos.size();i++){
@@ -76,7 +81,7 @@ public class Pizzaria {
 		}
 	}
 	
-	//metodo para adicionar bebidas
+	//metodo para listar as bebidas
 	public void listarBebidas(){
 		boolean state1 = false;
 		for(int i=0;i<produtos.size();i++){
@@ -91,6 +96,11 @@ public class Pizzaria {
 			System.out.println("A pizzaria ainda não cadastrou bebidas");
 		}
 		
+	}
+	//metodo para retornar o arraylist de produtos
+	public  ArrayList <Produto> retornarArray(){
+		ArrayList<Produto> lista = new ArrayList<Produto>();
+		return lista;
 	}
 	
 	//metodo para remover produto da lista de produtos
@@ -110,7 +120,7 @@ public class Pizzaria {
 		System.out.println(" Mesa(s) ocupada(s): ");
 
 		for(int i=0;i<mesas.size();i++){
-	    	System.out.println(mesas.get(i).getNumMesa());
+	    	System.out.println("No: "+ mesas.get(i).getNumMesa());
 	    	state1 = true;
 		}	
 		if(!state1){
@@ -126,10 +136,11 @@ public class Pizzaria {
 	public Mesa buscarMesa(String numMesa){
 		for(Mesa mesa : mesas ){
 			if(mesa.getNumMesa().equals(numMesa)){
-				System.out.println("Mesa" + numMesa + " encontrada");
+				System.out.println("Mesa " + numMesa + " encontrada");
+				return mesa;
 			}
-			return mesa;
 		}
+		System.out.println("Mesa " + numMesa + " nao ocupada");
 		return null;
 	}
 	
@@ -162,12 +173,39 @@ public class Pizzaria {
 		mesaPedido.listarProdutosPedido();
 	}
 	
-	//metodo que mostra os pedidos da mesa
-	public void pedidosMesa(String numMesa){
+	//metodo para serializar(salvar) o array de produtos
+	public int salvarProdutos(ArrayList produtos){
+		try{
+			FileOutputStream out = new FileOutputStream("produtos.ser");
+			ObjectOutputStream objOut = new ObjectOutputStream(out);
 		
+			objOut.writeObject(produtos); 	//referencia à estrutura que deve ser salva
+			objOut.close();
+			System.out.println("Dados salvos com sucesso!");
+			return 0;
+		}
+		catch(Exception exception){
+			return -1;
+		}
 	}
 	
-	
+	//metodo para ler o arquivo serializado salvo
+	public Object carregarDados(){
+		Object resultado = null;
+		
+		try{
+			//utilizar o nome do arquivo salvo
+			FileInputStream fs = new FileInputStream("produtos.ser");
+			ObjectInputStream os = new ObjectInputStream(fs);
+			resultado = os.readObject();			
+			os.close();
+			System.out.println("Dados carregados com sucesso!");
+			return resultado;
+		}
+		catch (Exception exception){
+			return null;
+		}
+	}
 	
 	
 }
