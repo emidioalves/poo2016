@@ -30,27 +30,49 @@ public class PizzariaUI {
 
 	//menu cadastro de produtos
 	private void printMenuCadastro(){
+		System.out.println("\t\t*****MENU CADASTRO DE PRODUTOS*****  ");
+
 		System.out.println("Digite uma opção:  ");
 		System.out.println("\t 0 - voltar ao menu anterior ");
-		System.out.println("\t 1 - Menu Cadastrar Produto  ");
-		System.out.println("\t 2 - Menu Listar Produtos Cadastrados  ");
+		System.out.println("\t 1 - Cadastrar Produtos  ");
+		System.out.println("\t 2 - Listar Produtos Cadastrados  ");
 		System.out.println("\t 3 - Excluir Produto Cadastrado  ");
 		System.out.println("Digite uma opção:  ");
  }
 
+	//menu Cadastrar Produtos
+	private void printMenuCadastrarProdutos(){
+		System.out.println("\t\t***** CADASTRO DE PRODUTOS*****  ");
+
+		System.out.println("Digite uma opção:  ");
+		System.out.println("\t 0 - voltar ao menu anterior ");
+		System.out.println("\t 1 - Cadastrar pizza salgada  ");
+		System.out.println("\t 2 - Cadastrar pizza doce  ");
+		System.out.println("\t 3 - Cadastrar bebida  ");
+		System.out.println("Digite uma opção:  ");
+ }
+	//menu listar produtos cadastrados
+	private void printMenuListarProdutos(){
+		System.out.println("\t\t***** LISTA DE PRODUTOS*****  ");
+
+		System.out.println("Digite uma opção:  ");
+		System.out.println("\t 0 - voltar ao menu anterior ");
+		System.out.println("\t 1 - Lista de pizzas salgadas  ");
+		System.out.println("\t 2 - Lista de pizzas doces  ");
+		System.out.println("\t 3 - Lista de bebidas  ");
+		System.out.println("Digite uma opção:  ");
+ }
+	
 	//criação da interface
 	public void run(){
 		input = new Scanner (System.in);
-		int option;
-		try
-			{
-				do {
+		int option = 0;
+		
+		do {
+			try{
 					printMenuInicial();
 					option = Integer.parseInt(input.nextLine());
-					if (option <0){
-						throw new NegativeNumberException();
-					}
-					if (option > 3){
+					if (option <0 || option >4){
 						throw new NumberOutLimitsException();
 					}
 					switch (option){
@@ -61,49 +83,46 @@ public class PizzariaUI {
 						case 3:
 							consultarMesas(); break;
 					}
-				}while (option !=0);
 		
+			}
+				catch (InputMismatchException inputMismatchException){
+					System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
+					input.nextLine();	
+				}
+				catch (NumberFormatException number ){
+					System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
+					input.nextLine();
+				}
+				catch (NumberOutLimitsException bigNumber ){
+					System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
+					input.nextLine();
+				}
 		}
-		catch (InputMismatchException inputMismatchException){
-			System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
-			input.nextLine();	
-		}
-		catch(NegativeNumberException negative){
-			System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
-			input.nextLine();
-		}
-		catch (NumberFormatException number ){
-			System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
-			input.nextLine();
-		}
-		catch (NumberOutLimitsException bigNumber ){
-			System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
-			input.nextLine();
-		}
+		while(option !=0);
+
 	}
 	
 	
 	//metodo de cadastro de produto
 	public void cadastroDeProduto(){
 		input = new Scanner (System.in);
-		int option;
-		try
+		int option =0;
+		do
 			{
-				do {
+				try {
 					printMenuCadastro();
 					option = Integer.parseInt(input.nextLine());
-					if (option <0){
-						throw new NegativeNumberException();
+					if (option <0 || option >3){
+						throw new NumberOutLimitsException();
 					}
 					switch (option){
 						case 1:
-							cadastroDeProduto(); break;
+							entradaProdutos(); break;
 						case 2:
-							abrirPedidoMesa(); break;
+							//listarProdutos(); break;
 						case 3:
-							consultarMesas(); break;
+							//removerProdutos(); break;
 					}
-				}while (option !=0);
 		
 		}
 		catch (InputMismatchException inputMismatchException){
@@ -114,13 +133,71 @@ public class PizzariaUI {
 			System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
 			input.nextLine();
 		}
-		catch(NegativeNumberException negative){
+		catch(NumberOutLimitsException bigNumber){
 			System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
 			input.nextLine();
 		}
-		
+		}
+		while (option !=0);
+
 		
 	}
+	
+	//metodo para cadastrar produtos
+	public void entradaProdutos(){
+		input = new Scanner (System.in);
+		int option =0;
+		do
+			{
+				try {
+					printMenuCadastrarProdutos();
+					option = Integer.parseInt(input.nextLine());
+					if (option <0 || option > 3){
+						throw new NumberOutLimitsException();
+					}
+					switch (option){
+						case 1:
+							cadastrarPizzaSalgada(); break;
+						case 2:
+							cadastrarPizzaDoce(); break;
+						case 3:
+							cadastrarBebida(); break;
+					}
+		
+		}
+		catch (InputMismatchException inputMismatchException){
+			System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
+			input.nextLine();	
+		}
+		catch (NumberFormatException number ){
+			System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
+			input.nextLine();
+		}
+		catch(NumberOutLimitsException bigNumber){
+			System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
+			input.nextLine();
+		}
+		}
+		while (option !=0);
+
+		
+	}
+		
+	//metodo para cadastrar pizza salgada
+	public void cadastrarPizzaSalgada(){
+		
+	}
+	
+	//metodo para cadastrar pizza salgada
+	public void cadastrarPizzaDoce(){
+			
+	}
+	
+	//metodo para cadastrar pizza salgada
+	public void cadastrarBebida(){
+			
+	}
+	
 	
 	//metodo para realizar um pedido
 	public void abrirPedidoMesa(){

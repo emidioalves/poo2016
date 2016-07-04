@@ -62,9 +62,7 @@ public class Pizzaria_Mais_Testes {
 		//nomePizzaria.realizarPedido("Agua Mineral 1L", 3);
 		//nomePizzaria.realizarPedido("Coca Cola 2L", 3);*/
 		nomePizzaria.salvarProdutos(nomePizzaria.retornarArray());
-		
-		ArrayList <Produto>() produtosCarregados = newArrayList<Produto>();
-		
+				
 
 		
 	}
