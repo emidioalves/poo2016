@@ -59,8 +59,18 @@ public class PizzariaUI {
 		System.out.println("\t 2 - Lista de pizzas doces  ");
 		System.out.println("\t 3 - Lista de bebidas  ");
 		System.out.println("Digite uma opção:  ");
- }
+	}
 	
+	//menu abrir Pedido Mesa
+	private void printMenuAbrirPedidoMesa(){
+		System.out.println("\t\t***** Menu Pedidos da Mesa*****  ");
+		System.out.println("Digite uma opção:  ");
+		System.out.println("\t 0 - voltar ao menu anterior ");
+		System.out.println("\t 1 - Iniciar Atendimento  ");
+		System.out.println("\t 2 - Realizar Pedido  ");
+		System.out.println("\t 3 - Remover Produto de um pedido  ");
+		System.out.println("Digite uma opção:  ");
+ }
 	//criação da interface
 	public void run(){
 		input = new Scanner (System.in);
@@ -338,9 +348,81 @@ public class PizzariaUI {
 		}
 	}
 	
-	//metodo para realizar um pedido
+	//metodo para atendimento
 	public void abrirPedidoMesa(){
+		input = new Scanner (System.in);
+		int option =0;
+			do
+				{
+					try {
+						printMenuAbrirPedidoMesa();
+						option = Integer.parseInt(input.nextLine());
+						if (option <0 || option >3){
+							throw new NumberOutLimitsException();
+						}
+						switch (option){
+							case 1:
+								iniciarPedidoMesa(); break;
+							case 2:
+								realizaAtendimento(); break;
+							case 3:
+								removeProdutoMesa(); break;
+						}
+			
+			}
+			catch (InputMismatchException inputMismatchException){
+				System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
+				input.nextLine();	
+			}
+			catch (NumberFormatException number ){
+				System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
+				input.nextLine();
+			}
+			catch(NumberOutLimitsException bigNumber){
+				System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
+				input.nextLine();
+			}
+			}
+			while (option !=0);
+	}
+
+	
+	//metodo para atender uma mesa
+	public void iniciarPedidoMesa(){
+		System.out.println("\n\n\t\t*** Abrir Pedido da mesa ***\n\n");
 		
+		try{
+			System.out.println("--> Digite o número da mesa: ");
+		
+			int mesaAtend =  Integer.parseInt(input.nextLine()); 
+			Mesa mesa = new Mesa(Integer.toString(mesaAtend));
+			System.out.println("-->Mesa " +mesaAtend+ " em atendimento");
+			pizzaria.adicionarMesa(mesa);
+		}
+		catch(InputMismatchException inputMismatchException ){
+			System.err.println("Valor inválido. Digite novamente!!");
+			input.nextLine();
+		}
+	}
+	
+	//metodo que realiza o pedido a mesa
+	public void realizaAtendimento(){
+		System.out.println("\n\t\t *** Atendimento da Mesa *** \n");
+		System.out.println("-->Digite o número da mesa: ");
+		int numMesa = Integer.parseInt(input.nextLine());
+		System.out.println("Digite o produto: ");
+		String prodPed = input.nextLine();
+		pizzaria.realizarPedido(prodPed, Integer.toString(numMesa));
+	}
+	
+	//metodo que remove produto de um pedido da mesa
+	public void removeProdutoMesa(){
+		System.out.println("\n\t\t *** Remove produto da Mesa *** \n");
+		System.out.println("Digite o número da mesa");
+		int numMesa = Integer.parseInt(input.nextLine());
+		System.out.println("Digite o produto: ");
+		String prodPed = input.nextLine();
+		pizzaria.removerProdutoPedido(prodPed, Integer.toString(numMesa));
 	}
 	
 	//metodo para consultar os pedidos das mesas

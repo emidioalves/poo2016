@@ -151,6 +151,7 @@ public class Pizzaria {
 			if (prod.getNome().equals(nome))
 				return(prod);
 		}
+		System.err.println("Produto não encontrado.");
 		return null;
 	}
 	
@@ -158,15 +159,26 @@ public class Pizzaria {
 	public void realizarPedido(String nome, String numMesa){
 		Produto prod = buscarProduto(nome);
 		Mesa mesaPedido = buscarMesa(numMesa);
-		mesaPedido.adicionarProdutoPedido(prod);
+		if (prod !=null && mesaPedido != null){
+			mesaPedido.adicionarProdutoPedido(prod);
+			System.out.println("***Pedido realizado com sucesso!***");
+		}
+		else{
+			System.err.println("***Impossível realizar pedido! Tente novamente***");
+		}
 	}
 	
 	//metodo para remover um produto adicionado em um pedido de mesa
 	public void removerProdutoPedido(String nome, String numMesa){
 		Produto prod = buscarProduto(nome);
-		Mesa mesaPedido = buscarMesa (numMesa);
-		mesaPedido.removerProdutoPedido(prod);
-		System.out.println("**Produto removido com sucesso!!**");
+		Mesa mesaPedido = buscarMesa(numMesa);
+		if (prod !=null && mesaPedido != null){
+			mesaPedido.removerProdutoPedido(prod);
+			System.out.println("***Produto removido com sucesso!***");
+		}
+		else{
+			System.err.println("***Impossível realizar pedido! Tente novamente***");
+		}
 	}
 	
 	//metodo para listar os produtos
