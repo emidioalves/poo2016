@@ -106,6 +106,7 @@ public class Pizzaria {
 	//metodo para remover produto da lista de produtos
 	public void removerProduto(Produto prod){
 		produtos.remove(prod);
+		System.out.println("**Produto Removido com Sucesso!!**");
 	}
 	
 	/*
@@ -150,7 +151,6 @@ public class Pizzaria {
 			if (prod.getNome().equals(nome))
 				return(prod);
 		}
-		System.err.println("Produto não encontrado no cadastro!!");
 		return null;
 	}
 	
@@ -166,6 +166,7 @@ public class Pizzaria {
 		Produto prod = buscarProduto(nome);
 		Mesa mesaPedido = buscarMesa (numMesa);
 		mesaPedido.removerProdutoPedido(prod);
+		System.out.println("**Produto removido com sucesso!!**");
 	}
 	
 	//metodo para listar os produtos

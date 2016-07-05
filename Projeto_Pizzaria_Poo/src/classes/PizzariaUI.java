@@ -31,7 +31,6 @@ public class PizzariaUI {
 	//menu cadastro de produtos
 	private void printMenuCadastro(){
 		System.out.println("\t\t*****MENU CADASTRO DE PRODUTOS*****  ");
-
 		System.out.println("Digite uma opção:  ");
 		System.out.println("\t 0 - voltar ao menu anterior ");
 		System.out.println("\t 1 - Cadastrar Produtos  ");
@@ -43,7 +42,6 @@ public class PizzariaUI {
 	//menu Cadastrar Produtos
 	private void printMenuCadastrarProdutos(){
 		System.out.println("\t\t***** CADASTRO DE PRODUTOS*****  ");
-
 		System.out.println("Digite uma opção:  ");
 		System.out.println("\t 0 - voltar ao menu anterior ");
 		System.out.println("\t 1 - Cadastrar pizza salgada  ");
@@ -51,10 +49,10 @@ public class PizzariaUI {
 		System.out.println("\t 3 - Cadastrar bebida  ");
 		System.out.println("Digite uma opção:  ");
  }
+	
 	//menu listar produtos cadastrados
 	private void printMenuListarProdutos(){
 		System.out.println("\t\t***** LISTA DE PRODUTOS*****  ");
-
 		System.out.println("Digite uma opção:  ");
 		System.out.println("\t 0 - voltar ao menu anterior ");
 		System.out.println("\t 1 - Lista de pizzas salgadas  ");
@@ -99,7 +97,6 @@ public class PizzariaUI {
 				}
 		}
 		while(option !=0);
-
 	}
 	
 	
@@ -181,6 +178,8 @@ public class PizzariaUI {
 		
 	//metodo para cadastrar pizza salgada
 	public void cadastroPizzaSalgada(){
+		System.out.println("\n\n\t\t*** Cadastro de Pizzas Salgadas***");
+
 		String sabor = null;
 		String tamanho = null;
 		double preco = 0;
@@ -211,6 +210,8 @@ public class PizzariaUI {
 	
 	//metodo para cadastrar pizza salgada
 	public void cadastroPizzaDoce(){
+		System.out.println("\n\n\t\t*** Cadastro de Pizzas Doces***");
+
 		String sabor = null;
 		String tamanho = null;
 		double preco = 0;
@@ -234,12 +235,13 @@ public class PizzariaUI {
 		}
 		finally{
 			pizzaria.cadastrarPizzaDoce(sabor.toUpperCase(), preco, tamanho.toUpperCase());
-			System.out.println("Produto cadastrado com sucesso!");			
+			System.out.println("Produto cadastrado com sucesso!\n");			
 		}
 	}
 	
 	//metodo para cadastrar bebida
 	public void cadastroBebida(){
+		System.out.println("\n\n\t\t*** Cadastro de Bebidas***");
 		String nome = null;
 		String tamanho = null;
 		double preco = 0;
@@ -322,14 +324,18 @@ public class PizzariaUI {
 	
 	//metodo que remove produtos da lista
 	public void removeProd(){
-		System.out.println("*** REMOÇÃO DE PRODUTO DA LISTA ***");
+		System.out.println("\n\n\t\t*** REMOÇÃO DE PRODUTO DA LISTA ***\n\n");
 		String prodRem;
 		System.out.println("Digite o nome do produto que deseja remover: ");
 		prodRem = input.nextLine();
-		Produto prod = pizzaria.buscarProduto(prodRem.toUpperCase());
-		pizzaria.removerProduto(prod);
-		System.out.println("Produto removido com sucesso!");
-		
+		String prodUP = prodRem.toUpperCase();
+		Produto prod = pizzaria.buscarProduto(prodUP);
+		if (prod == null){
+			System.err.println("Produto não encontrado");
+		}
+		else{
+			pizzaria.removerProduto(prod);
+		}
 	}
 	
 	//metodo para realizar um pedido
