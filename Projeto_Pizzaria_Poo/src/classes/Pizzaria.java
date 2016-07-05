@@ -184,8 +184,14 @@ public class Pizzaria {
 	//metodo para listar os produtos
 	public void listarPedido(String numMesa){
 		Mesa mesaPedido = buscarMesa(numMesa);
-		mesaPedido.listarProdutosPedido();
-	}
+		if (mesaPedido !=null){
+			mesaPedido.listarProdutosPedido();
+
+		}
+		else{
+			System.err.println("\t\t\n**Mesa não está em atendimendo\n\n**");
+		}
+		}
 	
 	//metodo para serializar(salvar) o array de produtos
 	public int salvarProdutos(ArrayList produtos){
