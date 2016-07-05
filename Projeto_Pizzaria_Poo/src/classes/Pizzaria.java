@@ -150,6 +150,7 @@ public class Pizzaria {
 			if (prod.getNome().equals(nome))
 				return(prod);
 		}
+		System.err.println("Produto não encontrado no cadastro!!");
 		return null;
 	}
 	

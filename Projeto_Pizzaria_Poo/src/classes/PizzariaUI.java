@@ -119,9 +119,9 @@ public class PizzariaUI {
 						case 1:
 							entradaProdutos(); break;
 						case 2:
-							//listarProdutos(); break;
+							listarProdutos(); break;
 						case 3:
-							//removerProdutos(); break;
+							removeProd(); break;
 					}
 		
 		}
@@ -139,8 +139,6 @@ public class PizzariaUI {
 		}
 		}
 		while (option !=0);
-
-		
 	}
 	
 	//metodo para cadastrar produtos
@@ -157,11 +155,11 @@ public class PizzariaUI {
 					}
 					switch (option){
 						case 1:
-							cadastrarPizzaSalgada(); break;
+							cadastroPizzaSalgada(); break;
 						case 2:
-							cadastrarPizzaDoce(); break;
+							cadastroPizzaDoce(); break;
 						case 3:
-							cadastrarBebida(); break;
+							cadastroBebida(); break;
 					}
 		
 		}
@@ -178,26 +176,161 @@ public class PizzariaUI {
 			input.nextLine();
 		}
 		}
-		while (option !=0);
+		while (option !=0);		
+	}
+		
+	//metodo para cadastrar pizza salgada
+	public void cadastroPizzaSalgada(){
+		String sabor = null;
+		String tamanho = null;
+		double preco = 0;
 
-		
-	}
-		
-	//metodo para cadastrar pizza salgada
-	public void cadastrarPizzaSalgada(){
-		
+		try{
+		System.out.println("Digite o sabor da pizza: ");
+		sabor = input.nextLine();
+		//sabor.toUpperCase();
+		System.out.println("Digite o tamanho da pizza: ");
+		tamanho = input.nextLine();
+		System.out.println("Digite o preço: ");
+		preco = Double.parseDouble(input.nextLine());
+		if (preco < 0){
+				throw new NegativeNumberException();
+			}
+		}
+		catch (NegativeNumberException negative){
+			System.err.println("Digite um valor positivo!");
+		}
+		catch (InputMismatchException inputError){
+			System.err.println("Digite um valor válido");
+		}
+		finally{
+			pizzaria.cadastrarPizzaSalgada(sabor.toUpperCase(), preco, tamanho.toUpperCase());
+			System.out.println("Produto cadastrado com sucesso!");
+		}
 	}
 	
 	//metodo para cadastrar pizza salgada
-	public void cadastrarPizzaDoce(){
-			
+	public void cadastroPizzaDoce(){
+		String sabor = null;
+		String tamanho = null;
+		double preco = 0;
+
+		try{
+			System.out.println("Digite o sabor da pizza: ");
+			sabor = input.nextLine();
+			System.out.println("Digite o tamanho da pizza: ");
+			tamanho = input.nextLine();
+			System.out.println("Digite o preço: ");
+			preco = Double.parseDouble(input.nextLine());
+			if (preco < 0){
+				throw new NegativeNumberException();
+			}
+		}
+		catch (NegativeNumberException negative){
+			System.err.println("Digite um valor positivo!");
+		}
+		catch (InputMismatchException inputError){
+			System.err.println("Digite um valor válido");
+		}
+		finally{
+			pizzaria.cadastrarPizzaDoce(sabor.toUpperCase(), preco, tamanho.toUpperCase());
+			System.out.println("Produto cadastrado com sucesso!");			
+		}
 	}
 	
-	//metodo para cadastrar pizza salgada
-	public void cadastrarBebida(){
-			
+	//metodo para cadastrar bebida
+	public void cadastroBebida(){
+		String nome = null;
+		String tamanho = null;
+		double preco = 0;
+		try{
+			System.out.println("Digite o nome da bebida: ");
+			nome = input.nextLine();
+			System.out.println("Digite o tamanho: ");
+			tamanho = input.nextLine();
+			System.out.println("Digite o preço: ");
+			preco = Double.parseDouble(input.nextLine());
+				if (preco < 0){
+					throw new NegativeNumberException();
+				}
+		}
+		catch (NegativeNumberException negative){
+			System.out.println("Digite um valor positivo!");
+		}
+		catch (InputMismatchException inputError){
+			System.err.println("Digite um valor válido");
+		}
+		finally{
+			pizzaria.cadastrarBebida(nome.toUpperCase(), preco, tamanho.toUpperCase());
+			System.out.println("Produto cadastrado com sucesso!");	
+
+		}
 	}
 	
+	//metodo de listagem de produtos
+	public void listarProdutos(){
+		input = new Scanner (System.in);
+		int option =0;
+		do
+			{
+				try {
+					printMenuListarProdutos();
+					option = Integer.parseInt(input.nextLine());
+					if (option <0 || option > 3){
+						throw new NumberOutLimitsException();
+					}
+					switch (option){
+						case 1:
+							listarPizzaSalgada(); break;
+						case 2:
+							listarPizzaDoce(); break;
+						case 3:
+							listarBebida(); break;
+					}
+		
+		}
+		catch (InputMismatchException inputMismatchException){
+			System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
+			input.nextLine();	
+		}
+		catch (NumberFormatException number ){
+			System.err.println("Necessário entrar com um valor válido. Tente novamente\n");
+			input.nextLine();
+		}
+		catch(NumberOutLimitsException bigNumber){
+			System.err.println("Necessario entrar com um valor válido. Tente novamente\n");
+			input.nextLine();
+		}
+		}
+		while (option !=0);		
+	}
+	
+	//metodo para listar pizza salgada
+	public void listarPizzaSalgada(){
+		pizzaria.listarPizzasSalgadas();
+		}
+
+	//metodo para listar pizza doce
+	public void listarPizzaDoce(){
+		pizzaria.listarPizzasDoces();
+	}
+	
+	//metodo para listar pizza doce
+	public void listarBebida(){
+		pizzaria.listarBebidas();
+	}
+	
+	//metodo que remove produtos da lista
+	public void removeProd(){
+		System.out.println("*** REMOÇÃO DE PRODUTO DA LISTA ***");
+		String prodRem;
+		System.out.println("Digite o nome do produto que deseja remover: ");
+		prodRem = input.nextLine();
+		Produto prod = pizzaria.buscarProduto(prodRem.toUpperCase());
+		pizzaria.removerProduto(prod);
+		System.out.println("Produto removido com sucesso!");
+		
+	}
 	
 	//metodo para realizar um pedido
 	public void abrirPedidoMesa(){
